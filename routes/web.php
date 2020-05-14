@@ -16,3 +16,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::prefix('movies')->group(function () {
+    Route::post('/', 'MovieController@index')->name('movies');
+    Route::post('/create', 'MovieController@create')->name('createMovie');
+    Route::patch('/{movie}/update', 'MovieController@update')->name('updateMovie');
+});
+
+Route::prefix('studios')->group(function () {
+    Route::post('/', 'StudioController@index')->name('studios');
+    Route::post('/create', 'StudioController@create')->name('createStudio');
+    Route::patch('/{studio}/update', 'StudioController@update')->name('updateStudio');
+});
