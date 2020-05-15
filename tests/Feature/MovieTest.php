@@ -5,11 +5,12 @@ namespace Tests\Feature;
 use App\Models\Movie;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class MovieTest extends TestCase
 {
-    //use RefreshDatabase;
+    use RefreshDatabase;
 
     /** @test */
 //    public function index()
@@ -35,8 +36,11 @@ class MovieTest extends TestCase
     /** @test */
     public function create()
     {
-        //$this->assertAuthenticated();
-        $movie = factory(Movie::class)->create();
+        $this->assertAuthenticated();
+        $movie = null;
+        DB::transaction(function () use (&$movie) {
+            $movie = factory(Movie::class)->create();
+        });
         $response = $this->postJson('/movies', $movie->toArray());
         $response->dump();
         $response->assertCreated();

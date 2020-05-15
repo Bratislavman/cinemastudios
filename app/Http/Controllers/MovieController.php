@@ -9,13 +9,12 @@ class MovieController extends Controller
 {
     public function index(Request $request)
     {
-//        $request->validate([
-//            'title' => 'required|string|max:3',
-//        ]);
-//
-//        return [
-//            'created' => true,
-//        ];
+        $request->validate([
+            'name' => 'required|string|max:20',
+            'date_of_issue' => 'required|date',
+        ]);
+
+        return response('', 201);
     }
 
     public function movie(Movie $movie)
