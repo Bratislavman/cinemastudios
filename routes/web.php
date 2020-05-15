@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 
 Route::post('auth', 'Main@auth');
@@ -18,3 +17,10 @@ Route::middleware(['authorized'])->group(function () {
 Route::middleware(['admin'])->group(function () {
 
 });
+
+Route::get('/', function () {
+    return view('app');
+});
+Route::get('/{any?}', function ($any) {
+    return view('app');
+})->where('any', '.*');
