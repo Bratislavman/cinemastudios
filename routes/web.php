@@ -19,12 +19,13 @@ Route::get('/', function () {
 
 Route::prefix('movies')->group(function () {
     Route::post('/', 'MovieController@index')->name('movies');
+    Route::post('/{movie}', 'MovieController@movie')->name('movie');
     Route::post('/create', 'MovieController@create')->name('createMovie');
     Route::patch('/{movie}/update', 'MovieController@update')->name('updateMovie');
 });
 
-Route::prefix('studios')->group(function () {
-    Route::post('/', 'StudioController@index')->name('studios');
-    Route::post('/create', 'StudioController@create')->name('createStudio');
-    Route::patch('/{studio}/update', 'StudioController@update')->name('updateStudio');
-});
+//Route::prefix('studios')->group(function () {
+//    Route::post('/', 'StudioController@index')->name('studios');
+//    Route::post('/create', 'StudioController@create')->name('createStudio');
+//    Route::patch('/{studio}/update', 'StudioController@update')->name('updateStudio');
+//});

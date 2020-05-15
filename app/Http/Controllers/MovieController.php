@@ -7,7 +7,18 @@ use Illuminate\Http\Request;
 
 class MovieController extends Controller
 {
-    public function index()
+    public function index(Request $request)
+    {
+//        $request->validate([
+//            'title' => 'required|string|max:3',
+//        ]);
+//
+//        return [
+//            'created' => true,
+//        ];
+    }
+
+    public function movie(Movie $movie)
     {
         return '';
     }
