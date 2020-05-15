@@ -25,6 +25,6 @@ class RegisterController extends Controller
 
         Auth::loginUsingId($user->id);
 
-        return UserService::formingUserMinifined($user);
+        return UserService::userMinifined($user);
     }
 }

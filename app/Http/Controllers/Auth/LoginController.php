@@ -16,7 +16,7 @@ class LoginController extends Controller
             'password' => 'required|min:6|max:20',
         ]);
 
-        if (Auth::attempt($request->only('email', 'password'))) return UserService::getUserMinifined();
+        if (Auth::attempt($request->only('email', 'password'))) return UserService::getUserMinifinedById();
     }
 
     public function logout()
