@@ -35,11 +35,9 @@
 </template>
 
 <script>
-    import OneColumnTemplate from "../layouts/main/OneColumnTemplate";
+    import {mixin} from "../../mixins/forms/auth";
 
     export default {
-        components: {
-            OneColumnTemplate
-        }
+        mixins: [mixin],
     }
 </script>

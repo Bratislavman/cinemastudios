@@ -10,6 +10,16 @@
     export default {
         components: {
             OneColumnTemplate
-        }
+        },
+        created() {
+            //this.initialize()
+            // axios.post('auth')
+            //     .then(result => {
+            //
+            //     })
+            //     .catch(errors => {
+            //
+            //     })
+        },
     }
 </script>

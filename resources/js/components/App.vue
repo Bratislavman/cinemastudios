@@ -15,7 +15,7 @@
     export default {
         data: function () {
             return {
-                requestStatus: 1,
+                requestStatus: 0,
                 errors: [],
             }
         },
