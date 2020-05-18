@@ -11,8 +11,8 @@
                 </v-toolbar>
                 <v-card-text>
                     <v-form>
-                        <form-input :field="form.email" :validator = "validatorEmail"/>
-                        <form-input :field="form.password" :validator = "validatorPassword"/>
+                        <field-input :field="form.email" :validator = "validatorEmail"/>
+                        <field-input :field="form.password" :validator = "validatorPassword"/>
                     </v-form>
                 </v-card-text>
                 <v-card-actions>
@@ -26,10 +26,10 @@
 
 <script>
     import {mixin} from "../../mixins/forms/auth";
-    import FormInput from "../general/Form/FormInput";
+    import FieldInput from "../general/Form/FieldInput";
 
     export default {
         mixins: [mixin],
-        components: {FormInput},
+        components: {FieldInput},
     }
 </script>

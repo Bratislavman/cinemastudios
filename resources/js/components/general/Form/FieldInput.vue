@@ -1,20 +1,20 @@
 <template>
-    <form-main :field="field">
+    <field-container :field="field">
         <v-text-field
             :label="field.label"
             :name="field.label"
             :prepend-icon="field.icon"
             :type="field.type"
+            :error="errorsIsset"
             @input="validator"
         />
-    </form-main>
+    </field-container>
 </template>
 
 <script>
-    import FormMain from "./FormMain";
+    import {field} from "../../../mixins/forms/field";
 
     export default {
-        props: ['field', 'validator'],
-        components: {FormMain},
+        mixins: [field]
     }
 </script>
