@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-alert type="error" v-for="(value, fieldName) in errors" :key="fieldName">
+        <v-alert type="error" v-for="(value, i) in errors" :key="i">
             <span :key="index">{{value}}</span>
         </v-alert>
     </div>

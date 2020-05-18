@@ -26,7 +26,7 @@
 
 <script>
     import {mixin} from "../../mixins/forms/auth";
-    import FormInput from "../general/Form/Input";
+    import FormInput from "../general/Form/FormInput";
 
     export default {
         mixins: [mixin],

@@ -39,33 +39,37 @@ export const mixin = {
             //redirect homepage
         },
 
-        validateFieldRequired(nameField) {
-            this.frontendError(nameField, 'required', 'Поле обязательно', (value) => value === '');
+        validateFieldRequired(field) {
+            this.frontendError(field, 'required', 'Поле обязательно', () => field.value === '');
         },
-        validateFieldEmail() {
-            this.frontendError('email', 'email', 'Почта невалидна', (value) => {
+        validateFieldEmail(field) {
+            this.frontendError(field, 'email', 'Почта невалидна', () => {
                 const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-                return pattern.test(value) || 'Invalid e-mail.'
+                return pattern.test(field.value) || 'Invalid e-mail.'
             });
         },
-        validateTextFieldMaxLength(nameField, max = 20) {
-            this.frontendError(nameField, 'maxSymbol', `Максимум ${max} символов`, (value) => value.length > max);
+        validateTextFieldMaxLength(field, max = 20) {
+            this.frontendError(field, 'maxSymbol', `Максимум ${max} символов`, () => field.value.length > max);
         },
-        validateTextFieldMinLength(nameField, min = 6) {
-            this.frontendError(nameField, 'minSymbol', `Минимум ${min} символов`, (value) => value.length < min);
+        validateTextFieldMinLength(field, min = 6) {
+            this.frontendError(field, 'minSymbol', `Минимум ${min} символов`, () => field.value.length < min);
         },
 
         validatorEmail(value) {
-            this.form.email.value = value;
-            this.validateFieldRequired('email');
-            this.validateTextFieldMaxLength('email');
-            this.validateFieldEmail();
+            let field = {...this.form.email};
+            field.value = value;
+            this.validateFieldRequired(field);
+            this.validateTextFieldMaxLength(field);
+            this.validateFieldEmail(field);
+            this.form.email = field;
         },
         validatorPassword(value) {
-            this.form.password.value = value;
-            this.validateFieldRequired('password');
-            this.validateTextFieldMaxLength('password');
-            this.validateTextFieldMinLength('password');
+            let field = {...this.form.password};
+            field.value = value;
+            this.validateFieldRequired(field);
+            this.validateTextFieldMaxLength(field);
+            this.validateTextFieldMinLength(field);
+            this.form.password = field;
         }
     },
 }

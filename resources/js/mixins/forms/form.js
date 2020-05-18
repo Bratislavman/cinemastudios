@@ -39,11 +39,11 @@ export const mixin = {
 
         },
 
-        frontendError(nameField, nameErrorField, text, checkFunction) {
-            if (checkFunction(this.form[nameField].frontendErrors[nameErrorField]))
-                this.form[nameField].frontendErrors[nameErrorField] = text;
+        frontendError(field, nameErrorField, text, checkFunction) {
+            if (checkFunction())
+                field.frontendErrors[nameErrorField] = text;
             else
-                this.form[nameField].frontendErrors[nameErrorField] = '';
+                field.frontendErrors[nameErrorField] = '';
         }
     },
 }
