@@ -8,14 +8,20 @@ export const mixin = {
 
     methods: {
         request() {
-            let errorsCheck = false;
-            for (let fieldName in this.form) {
-                if (errors.form[fieldName].frontentdErrors.length > 0) {
-                    errorsCheck = true;
-                    break
+            this.validatorForm();
+            let pushAllowed = true;
+            try {
+                for (let fieldName in this.form) {
+                    for (let errorFieldName in this.form[fieldName]) {
+                        if (this.form[fieldName][errorFieldName] !== '')  {
+                            pushAllowed = false;
+                            throw 'break';
+                        }
+                    };
                 }
+            } catch (e) {
             }
-            if (errorsCheck == false) {
+            if (pushAllowed) {
                 for (let fieldName in this.form) {
                     errors.form[fieldName].backendErrors = [];
                     errors.form[fieldName].frontendErrors = {};
@@ -33,6 +39,10 @@ export const mixin = {
                         } else alert('Произошла ошибка сервера!');
                     })
             }
+        },
+
+        validatorForm() {
+
         },
 
         successFunction() {

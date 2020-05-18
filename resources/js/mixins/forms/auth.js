@@ -70,6 +70,10 @@ export const mixin = {
             this.validateTextFieldMaxLength(field);
             this.validateTextFieldMinLength(field);
             this.form.password = field;
+        },
+        validatorForm() {
+            this.validatorEmail(this.form.password.value);
+            this.validatorPassword(this.form.email.value);
         }
     },
 }
