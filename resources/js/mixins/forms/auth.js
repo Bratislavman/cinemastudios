@@ -9,6 +9,10 @@ export const mixin = {
                 value: '',
                 frontendErrors: [],
                 backendErrors: [],
+                label: 'Почта',
+                name: 'Email',
+                icon: 'mdi-email',
+                type: 'text',
                 validate: function (value) {
                     this.validateFieldRequired('email');
                     this.validateTextFieldMaxLength('email');
@@ -19,6 +23,10 @@ export const mixin = {
                 value: '',
                 frontendErrors: [],
                 backendErrors: [],
+                label: 'Пароль',
+                name: 'Password',
+                icon: 'mdi-lock',
+                type: 'password',
                 validate: function (value) {
                     this.validateFieldRequired('password');
                     this.validateTextFieldMaxLength('password');

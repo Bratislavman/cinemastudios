@@ -11,23 +11,13 @@
                 </v-toolbar>
                 <v-card-text>
                     <v-form>
-                        <v-text-field
-                            label="Почта"
-                            name="Email"
-                            prepend-icon="mdi-email"
-                            type="text"
-                        />
-                        <v-text-field
-                            label="Пароль"
-                            name="password"
-                            prepend-icon="mdi-lock"
-                            type="password"
-                        />
+                        <input :field="form.email"/>
+                        <input :field="form.password"/>
                     </v-form>
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer/>
-                    <v-btn color="primary">Войти</v-btn>
+                    <v-btn color="primary" @click="form.request">Войти</v-btn>
                 </v-card-actions>
             </v-card>
         </v-flex>
@@ -36,8 +26,10 @@
 
 <script>
     import {mixin} from "../../mixins/forms/auth";
+    import Input from "../general/Form/Input";
 
     export default {
         mixins: [mixin],
+        components: {Input},
     }
 </script>
