@@ -1,8 +1,6 @@
 <template>
     <div>
-        <v-alert type="error" v-for="(value, i) in errors" :key="i">
-            <span :key="index">{{value}}</span>
-        </v-alert>
+        <v-alert type="error" v-for="(value, i) in errors" :key="i">{{value}}</v-alert>
     </div>
 </template>
 
