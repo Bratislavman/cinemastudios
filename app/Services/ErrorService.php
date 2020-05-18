@@ -12,6 +12,15 @@ class ErrorService
         ], $code);
     }
 
+    public static function returnFieldError($errors)
+    {
+        return response()->json([
+            'code' => 500,
+            'message' => 'Ошибки полейй',
+            'errors' => $errors
+        ], 500);
+    }
+
     public static function returnError403()
     {
         return returnError('Нет доступа', 403);

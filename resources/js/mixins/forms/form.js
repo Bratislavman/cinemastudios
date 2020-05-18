@@ -11,30 +11,29 @@ export const mixin = {
             this.validatorForm();
             let pushAllowed = true;
             try {
-                for (let fieldName in this.form) {
-                    for (let errorFieldName in this.form[fieldName]) {
-                        if (this.form[fieldName][errorFieldName] !== '')  {
-                            pushAllowed = false;
-                            throw 'break';
-                        }
-                    };
-                }
+                for (let fieldName in this.form)
+                    for (let errorFieldName in this.form[fieldName].frontendErrors)
+                        if (this.form[fieldName].frontendErrors[errorFieldName] !== '') throw 'break';
+
             } catch (e) {
+                pushAllowed = false;
             }
             if (pushAllowed) {
+                let data = {};
                 for (let fieldName in this.form) {
-                    errors.form[fieldName].backendErrors = [];
-                    errors.form[fieldName].frontendErrors = {};
+                    this.form[fieldName].backendErrors = [];
+                    this.form[fieldName].frontendErrors = {};
+                    data[fieldName] = this.form[fieldName].value;
                 }
                 let $this = this;
-                axios.post($this.url, {form: $this.form})
+                axios.post($this.url, data)
                     .then(result => {
                         $this.successFunction();
                     })
                     .catch(errors => {
                         if (errors.response.data.errors) {
                             for (let fieldName in errors.response.data.errors) {
-                                errors.form[fieldName].backendErrors = [...errors.response.data.errors[fieldName]];
+                                $this.form[fieldName].backendErrors = [...errors.response.data.errors[fieldName]];
                             }
                         } else alert('Произошла ошибка сервера!');
                     })

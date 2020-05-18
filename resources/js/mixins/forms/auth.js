@@ -4,7 +4,7 @@ import {mixin as mixinForm} from "./form";
 export const mixin = {
     data() {
         return {
-            url: 'auth',
+            url: 'login',
             form: {
                 email: {
                     value: '',
@@ -72,8 +72,8 @@ export const mixin = {
             this.form.password = field;
         },
         validatorForm() {
-            this.validatorEmail(this.form.password.value);
-            this.validatorPassword(this.form.email.value);
+            this.validatorEmail(this.form.email.value);
+            this.validatorPassword(this.form.password.value);
         }
     },
 }
