@@ -9,7 +9,7 @@
                     <v-icon>mdi-account</v-icon>
                 </v-list-item-action>
                 <v-list-item-content>
-                    <v-list-item-title>Профиль</v-list-item-title>
+                    <v-list-item-title @click="redirectUrl('authorization')">Вход</v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
 

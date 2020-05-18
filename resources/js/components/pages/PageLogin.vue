@@ -11,13 +11,13 @@
                 </v-toolbar>
                 <v-card-text>
                     <v-form>
-                        <input :field="form.email"/>
-                        <input :field="form.password"/>
+                        <form-input :field="form.email" :validator = "validatorEmail"/>
+                        <form-input :field="form.password" :validator = "validatorPassword"/>
                     </v-form>
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer/>
-                    <v-btn color="primary" @click="form.request">Войти</v-btn>
+                    <v-btn color="primary" @click="request">Войти</v-btn>
                 </v-card-actions>
             </v-card>
         </v-flex>
@@ -26,10 +26,10 @@
 
 <script>
     import {mixin} from "../../mixins/forms/auth";
-    import Input from "../general/Form/Input";
+    import FormInput from "../general/Form/Input";
 
     export default {
         mixins: [mixin],
-        components: {Input},
+        components: {FormInput},
     }
 </script>

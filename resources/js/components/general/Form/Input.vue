@@ -1,21 +1,21 @@
 <template>
-    <div>
+    <main :field="field">
         <v-text-field
             :label="field.label"
             :name="field.label"
             :prepend-icon="field.icon"
             :type="field.type"
-            @input="field.actionFunction"
+
+            @input="validator"
         />
-        <errors v-if="field.errors.length > 0" :type="field.errors"/>
-    </div>
+    </main>
 </template>
 
 <script>
-    import Errors from "../Errors";
+    import Main from "./Main";
 
     export default {
-        components: {Errors},
-        props: ['field']
+        props: ['field', 'validator'],
+        components: {Main},
     }
 </script>
