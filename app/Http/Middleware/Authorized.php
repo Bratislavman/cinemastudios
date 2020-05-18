@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Service\ErrorService;
+use App\Services\ErrorService;
 use Illuminate\Support\Facades\Auth;
 
 class Authorized

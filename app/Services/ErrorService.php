@@ -23,6 +23,6 @@ class ErrorService
 
     public static function returnError403()
     {
-        return returnError('Нет доступа', 403);
+        return ErrorService::returnError('Нет доступа', 403);
     }
 }
