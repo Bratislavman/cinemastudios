@@ -1,7 +1,12 @@
 <template>
     <v-navigation-drawer v-model="showMenu" app>
         <v-list dense>
-            <navigation-item nameRoute="authorization" icon="mdi-account" text="Вход"/>
+            <template v-if = "user">
+
+            </template>
+            <template v-else>
+                <navigation-item nameRoute="authorization" icon="mdi-account" text="Вход"/>
+            </template>
             <navigation-item nameRoute="home" icon="mdi-home" text="Главная"/>
         </v-list>
     </v-navigation-drawer>
@@ -9,6 +14,8 @@
 
 <script>
     import NavigationItem from "./NavigationItem";
+    import {mapGetters} from "vuex";
+    import {USER_DATA} from "../../../store/modules/user";
 
     export default {
         props: [
@@ -21,6 +28,11 @@
             redirectObj: function (name, params = null) {
                 this.$router.push({name, params});
             },
+        },
+        computed: {
+            ...mapGetters({
+                user: USER_DATA
+            })
         },
         components: {
             NavigationItem
