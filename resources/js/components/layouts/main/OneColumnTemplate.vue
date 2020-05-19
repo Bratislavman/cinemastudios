@@ -42,6 +42,11 @@
             NavigationDrawer,
             headerComponent: Header,
             Footer
-        }
+        },
+        provide: function() {
+            return {
+                changeShowMenu: this.changeShowMenu
+            };
+        },
     }
 </script>

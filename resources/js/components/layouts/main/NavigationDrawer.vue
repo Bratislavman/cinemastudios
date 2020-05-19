@@ -1,31 +1,15 @@
 <template>
-    <v-navigation-drawer
-        v-model="showMenu"
-        app
-    >
+    <v-navigation-drawer v-model="showMenu" app>
         <v-list dense>
-            <v-list-item @click="redirectUrl('authorization')">
-                <v-list-item-action>
-                    <v-icon>mdi-account</v-icon>
-                </v-list-item-action>
-                <v-list-item-content>
-                    <v-list-item-title>Вход</v-list-item-title>
-                </v-list-item-content>
-            </v-list-item>
-
-            <v-list-item @click="redirectObj('profile-list-page')">
-                <v-list-item-action>
-                    <v-icon>mdi-account-multiple</v-icon>
-                </v-list-item-action>
-                <v-list-item-content>
-                    <v-list-item-title>Пользователи</v-list-item-title>
-                </v-list-item-content>
-            </v-list-item>
+            <navigation-item nameRoute="authorization" icon="mdi-account" text="Вход"/>
+            <navigation-item nameRoute="home" icon="mdi-home" text="Главная"/>
         </v-list>
     </v-navigation-drawer>
 </template>
 
 <script>
+    import NavigationItem from "./NavigationItem";
+
     export default {
         props: [
             'showMenu'
@@ -37,6 +21,14 @@
             redirectObj: function (name, params = null) {
                 this.$router.push({name, params});
             },
-        }
+        },
+        components: {
+            NavigationItem
+        },
+        provide: function () {
+            return {
+                redirectObj: this.redirectObj
+            };
+        },
     }
 </script>

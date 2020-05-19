@@ -1,6 +1,6 @@
 <template>
     <v-app-bar app color="indigo" dark>
-        <v-app-bar-nav-icon @click="$parent.changeShowMenu"></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon @click="changeShowMenu"></v-app-bar-nav-icon>
         <v-toolbar-title>
             Кино и студии!
             <template v-if="user">
@@ -26,6 +26,7 @@
             ...mapActions({
                 logout: USER_LOGOUT
             })
-        }
+        },
+        inject: ['changeShowMenu']
     }
 </script>
