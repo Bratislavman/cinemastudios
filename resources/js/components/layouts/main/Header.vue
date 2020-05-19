@@ -24,8 +24,11 @@
         },
         methods: {
             ...mapActions({
-                logout: USER_LOGOUT
-            })
+                userLogout: USER_LOGOUT
+            }),
+            logout() {
+                this.userLogout(this.$router);
+            },
         },
         inject: ['changeShowMenu']
     }

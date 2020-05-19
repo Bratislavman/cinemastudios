@@ -1,5 +1,6 @@
 import OneColumnTemplate from "../../components/layouts/main/OneColumnTemplate";
 import {mixin as mixinForm} from "./form";
+import {USER_INI} from "../../store/modules/user";
 
 export const mixin = {
     data() {
@@ -35,8 +36,9 @@ export const mixin = {
     },
 
     methods: {
-        successFunction() {
-            //redirect homepage
+        successFunction(result) {
+            this.$store.commit(USER_INI, result.data);
+            this.$router.push({name: 'home'});
         },
 
         validateFieldRequired(field) {

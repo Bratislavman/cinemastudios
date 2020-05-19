@@ -44,7 +44,7 @@ export const user = {
                 })
         },
         [USER_LOGOUT]: (context, router) => {
-            context.commit(USER_DATA, null);
+            context.commit(USER_INI, null);
             router.push({name: 'home'});
             axios.post('logout').catch(errors => {
                 alert('Ошибка сервера! Вам не удалось выйти из системы. Перезагрузите страницу.');

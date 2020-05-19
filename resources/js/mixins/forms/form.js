@@ -28,7 +28,7 @@ export const mixin = {
                 let $this = this;
                 axios.post($this.url, data)
                     .then(result => {
-                        $this.successFunction();
+                        $this.successFunction(result);
                     })
                     .catch(errors => {
                         if (errors.response.data.errors) {
@@ -44,7 +44,7 @@ export const mixin = {
 
         },
 
-        successFunction() {
+        successFunction(result) {
 
         },
 
