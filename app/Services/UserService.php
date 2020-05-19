@@ -8,13 +8,40 @@ use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
-    public static function createUser($email, $password, $name)
+    const ROLE_ID_ADMIN = 1;
+
+    const USER_ROLES = [
+        [
+            'name' => 'Администратор',
+            'machine_name' => 'admin',
+            'id' => self::ROLE_ID_ADMIN
+        ],
+        [
+            'name' => 'Пользователь',
+            'machine_name' => 'user',
+            'id' => 2
+        ],
+    ];
+
+    public static function getRoleProperty($machine_name, $propertyName = 'user_id')
+    {
+        foreach (UserService::USER_ROLES as $entity) if ($machine_name == $entity['machine_name']) return $entity[$propertyName];
+        return null;
+    }
+
+    public static function getRoleId($machine_name)
+    {
+        return UserService::getRoleProperty($machine_name);
+    }
+
+    public static function createUser($email, $password, $name, $role_id = self::ROLE_ID_ADMIN)
     {
         return User::create(
             [
                 'email' => $email,
                 'password' => Hash::make($password),
-                'name' => $name
+                'name' => $name,
+                'role_id' => $role_id
             ]
         );
     }
