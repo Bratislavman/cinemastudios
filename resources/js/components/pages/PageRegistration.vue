@@ -11,18 +11,10 @@
                 </v-toolbar>
                 <v-card-text>
                     <v-form>
-                        <v-text-field
-                            label="Почта"
-                            name="Email"
-                            prepend-icon="mdi-email"
-                            type="text"
-                        />
-                        <v-text-field
-                            label="Пароль"
-                            name="password"
-                            prepend-icon="mdi-lock"
-                            type="password"
-                        />
+                        <field-input :field="form.name" :validator="validatorName"/>
+                        <field-input :field="form.email" :validator="validatorEmail"/>
+                        <field-input :field="form.password" :validator="validatorPassword"/>
+                        <field-input :field="form.password_confirm" :validator="validatorPasswordConfirm"/>
                     </v-form>
                 </v-card-text>
                 <v-card-actions>
@@ -35,6 +27,7 @@
 </template>
 
 <script>
+    import FieldInput from "../general/Form/FieldInput";
     import {mixin} from "../../mixins/forms/auth";
 
     export default {
@@ -43,58 +36,53 @@
         data: () => ({
             url: 'register',
             form: {
-                email: {
-                    value: '',
-                    frontendErrors: [],
-                    backendErrors: [],
-                    validate: function (value) {
-                        this.validateFieldRequired('email');
-                        this.validateTextFieldMaxLength('email');
-                        this.validateFieldEmail();
-                    }
-                },
-                name: {
-                    value: '',
-                    frontendErrors: [],
-                    backendErrors: [],
-                    validate: function (value) {
-                        this.validateFieldRequired('name');
-                        this.validateTextFieldMaxLength('name');
-                        this.validateTextFieldMinLength('name');
-                    }
-                },
-                password: {
-                    value: '',
-                    frontendErrors: [],
-                    backendErrors: [],
-                    validate: function (value) {
-                        this.validateFieldRequired('password');
-                        this.validateTextFieldMaxLength('password');
-                        this.validateTextFieldMinLength('password');
-                        this.validateFieldPasswordConfirm();
-                    }
-                },
-                passwordConfirm: {
-                    value: '',
-                    frontendErrors: [],
-                    backendErrors: [],
-                    validate: function (value) {
-                        this.validateFieldRequired('password_confirm');
-                        this.validateTextFieldMaxLength('password_confirm');
-                        this.validateTextFieldMinLength('password_confirm');
-                        this.validateFieldPasswordConfirm('password_confirm', 'password');
-                    }
-                }
+                name: this.createField('Имя', 'Имя', 'mdi-account'),
+                email: this.createField('Почта', 'Email', 'mdi-email'),
+                password: this.createField('Пароль', 'Password', 'mdi-lock'),
+                password_confirm: this.createField('Повтор пароля', 'Password', 'mdi-lock')
             }
         }),
 
+        components: {FieldInput},
+
         methods: {
-            validateFieldPasswordConfirm(namePasswordField = 'password', namePasswordConfirmField = 'password_confirm') {
-                let $this = this;
-                this.frontendError(namePasswordField, 'passwordConfirm', 'Пароли не совпадают',
-                    () => $this.form[namePasswordField].value == $this.form[namePasswordConfirmField].value
+            validateFieldPasswordConfirm(fieldPassword, fieldPassword2) {
+                this.frontendError(fieldPassword, 'passwordConfirm', 'Пароли не совпадают',
+                    () => fieldPassword.value != fieldPassword2.value
                 );
+            },
+            validatorName(value) {
+                let field = {...this.form.name};
+                field.value = value;
+                this.validateFieldRequired(field);
+                this.validateTextFieldMaxLength(field);
+                this.validateTextFieldMinLength(field, 2);
+                this.form.password = field;
+            },
+            validatorPassword(value) {
+                let field = {...this.form.password};
+                field.value = value;
+                this.validateFieldRequired(field);
+                this.validateTextFieldMaxLength(field);
+                this.validateTextFieldMinLength(field);
+                this.validateFieldPasswordConfirm(field, {...this.form.password_confirm});
+                this.form.password = field;
+            },
+            validatorPasswordConfirm(value) {
+                let field = {...this.form.password_confirm};
+                field.value = value;
+                this.validateFieldRequired(field);
+                this.validateTextFieldMaxLength(field);
+                this.validateTextFieldMinLength(field);
+                this.validateFieldPasswordConfirm(field, {...this.form.password});
+                this.form.password_confirm = field;
+            },
+            validatorForm() {
+                this.validatorName(this.form.name.value);
+                this.validatorEmail(this.form.email.value);
+                this.validatorPassword(this.form.password.value);
+                this.validatorPasswordConfirm(this.form.password_confirm.value);
             }
-        },
+        }
     }
 </script>

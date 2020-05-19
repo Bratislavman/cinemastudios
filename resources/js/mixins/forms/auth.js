@@ -7,24 +7,8 @@ export const mixin = {
         return {
             url: 'login',
             form: {
-                email: {
-                    value: '',
-                    frontendErrors: {},
-                    backendErrors: [],
-                    label: 'Почта',
-                    name: 'Email',
-                    icon: 'mdi-email',
-                    type: 'text'
-                },
-                password: {
-                    value: '',
-                    frontendErrors: {},
-                    backendErrors: [],
-                    label: 'Пароль',
-                    name: 'Password',
-                    icon: 'mdi-lock',
-                    type: 'password'
-                }
+                email: this.createField('Почта', 'Email', 'mdi-email'),
+                password: this.createField('Пароль', 'Password', 'mdi-lock', 'password')
             }
         }
     },
@@ -36,6 +20,18 @@ export const mixin = {
     },
 
     methods: {
+        createField(label, name, icon, type = 'text', value = '') {
+            return {
+                value,
+                frontendErrors: {},
+                backendErrors: [],
+                label,
+                name,
+                icon,
+                type
+            }
+        },
+
         successFunction(result) {
             this.$store.commit(USER_INI, result.data);
             this.$router.push({name: 'home'});
