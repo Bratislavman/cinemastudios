@@ -4,8 +4,8 @@ import PageLogin from "../components/pages/PageLogin";
 import PageRegistration from "../components/pages/PageRegistration";
 
 export const routes = [
-    {path: '/authorization', name: 'authorization', component: PageLogin, meta: { anonim: false }},
+    {path: '/authorization', name: 'authorization', component: PageLogin},
     {path: '/registration', name: 'registration', component: PageRegistration},
-    {path: '/',  name: 'home', component: PageHome},
+    {path: '/', name: 'home', component: PageHome},
     {path: '*', component: PageError404, name: '404'}
 ]

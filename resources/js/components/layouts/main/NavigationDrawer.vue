@@ -4,12 +4,12 @@
         app
     >
         <v-list dense>
-            <v-list-item @click="redirectObj('profile-page' , {id: $store.state.user.id})">
+            <v-list-item @click="redirectUrl('authorization')">
                 <v-list-item-action>
                     <v-icon>mdi-account</v-icon>
                 </v-list-item-action>
                 <v-list-item-content>
-                    <v-list-item-title @click="redirectUrl('authorization')">Вход</v-list-item-title>
+                    <v-list-item-title>Вход</v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
 
@@ -32,10 +32,10 @@
         ],
         methods: {
             redirectUrl: function (url) {
-                this.$router.push(url)
+                this.$router.push(url);
             },
-            redirectObj: function (name, params) {
-                this.$router.push({name, params})
+            redirectObj: function (name, params = null) {
+                this.$router.push({name, params});
             },
         }
     }

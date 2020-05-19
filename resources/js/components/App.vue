@@ -8,27 +8,18 @@
 <script>
     import Waiter from "./general/Waiter";
     import Errors from "./general/Errors";
+    import {USER_REQUEST_STATUS} from "../store/modules/user";
+    import {mapGetters} from 'vuex';
 
     export default {
-        data: function () {
-            return {
-                requestStatus: 1
-            }
-        },
         components: {
             Waiter,
             Errors
         },
-        mounted: function () {
-            let $this = this;
-            axios.post('auth')
-                .then(result => {
-                    $this.requestStatus = 0;
-                    $this.$store.commit('AUTH', result.data);
-                })
-                .catch(errors => {
-                    alert('Ошибка сервера! Перезагрузите страницу.');
-                })
+        computed: {
+            ...mapGetters({
+                requestStatus: USER_REQUEST_STATUS
+            })
         }
     }
 </script>

@@ -1,9 +1,5 @@
 <template>
-    <v-app-bar
-        app
-        color="indigo"
-        dark
-    >
+    <v-app-bar app color="indigo" dark>
         <v-app-bar-nav-icon @click="$parent.changeShowMenu"></v-app-bar-nav-icon>
         <v-toolbar-title>
             Кино и студии!
@@ -17,20 +13,19 @@
 </template>
 
 <script>
+    import {USER_DATA, USER_LOGOUT} from "../../../store/modules/user";
+    import {mapGetters, mapActions} from "vuex";
+
     export default {
         computed: {
-            user: function () {
-                return this.$store.getters.user
-            },
+            ...mapGetters({
+                user: USER_DATA
+            })
         },
         methods: {
-            logout() {
-                this.$store.commit('LOGOUT');
-                this.$router.push({name: 'home'});
-                axios.post('logout').catch(errors => {
-                        alert('Ошибка сервера! Вам не удалось выйти из системы. Перезагруите страницу.');
-                })
-            }
+            ...mapActions({
+                logout: USER_LOGOUT
+            })
         }
     }
 </script>
