@@ -7,7 +7,7 @@ Route::post('profile/{id}', 'Profile\Profile@index');
 
 Route::middleware(['anonimus'])->group(function () {
     Route::post('login', 'Auth\LoginController@login');
-    Route::post('register', 'Auth\RegisterController@lregister');
+    Route::post('register', 'Auth\RegisterController@register');
 });
 
 Route::middleware(['authorized'])->group(function () {

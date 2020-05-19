@@ -1,13 +1,14 @@
 <template>
     <v-navigation-drawer v-model="showMenu" app>
         <v-list dense>
+            <navigation-item nameRoute="home" icon="mdi-home" text="Главная"/>
             <template v-if = "user">
 
             </template>
             <template v-else>
                 <navigation-item nameRoute="authorization" icon="mdi-account" text="Вход"/>
+                <navigation-item nameRoute="registration" icon="mdi-account-plus" text="Регистрация"/>
             </template>
-            <navigation-item nameRoute="home" icon="mdi-home" text="Главная"/>
         </v-list>
     </v-navigation-drawer>
 </template>

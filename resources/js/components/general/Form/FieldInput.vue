@@ -2,7 +2,7 @@
     <field-container :field="field">
         <v-text-field
             :label="field.label"
-            :name="field.label"
+            :name="field.name"
             :prepend-icon="field.icon"
             :type="field.type"
             :error="errorsIsset"

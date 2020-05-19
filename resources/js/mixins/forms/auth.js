@@ -7,8 +7,8 @@ export const mixin = {
         return {
             url: 'login',
             form: {
-                email: this.createField('Почта', 'Email', 'mdi-email'),
-                password: this.createField('Пароль', 'Password', 'mdi-lock', 'password')
+                email: this.createField('Почта', 'email', 'mdi-email'),
+                password: this.createField('Пароль', 'password', 'mdi-lock', 'password')
             }
         }
     },
