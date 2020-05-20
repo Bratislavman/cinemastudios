@@ -27,16 +27,23 @@ class StudioController extends Controller
 
     function save(Studio $studio, $update = false)
     {
-        ModelService::saveOnRequest([
+        $fields = [
             ['name' => 'name'],
             ['name' => 'created_year'],
             ['name' => 'closed_year'],
             ['name' => 'country_id'],
-            ['name' => 'logo', 'resultValue' => function () use ($studio, $update) {
-                if ($update) Storage::disk('public')->delete($studio->logo);
-                return FileHelper::saveImage('logo', ['width' => 200]);
-            }],
-        ], $studio);
+        ];
+
+        if ($update) {
+            $fields [] = [
+                'name' => 'logo',
+                'resultValue' => function () use ($studio, $update) {
+                    Storage::disk('public')->delete($studio->logo);
+                    return FileHelper::saveImage('logo', ['width' => 200]);
+                }];
+        }
+
+        ModelService::saveOnRequest($fields, $studio);
     }
 
     public function index()
@@ -53,7 +60,7 @@ class StudioController extends Controller
     public function create(Request $request)
     {
         $request->validate($this->rules());
-        $this->save(new Studio());
+        $this->save(new Studio);
         return ResponseService::response201();
     }
 

@@ -6,6 +6,7 @@ use App\Models\Studio;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
+use Illuminate\Http\UploadedFile;
 
 class StudioTest extends TestCase
 {
@@ -14,10 +15,11 @@ class StudioTest extends TestCase
     {
         $user = User::where('name', 'Admin')->first();
         Auth::login($user);
-        $response = $this->post(route('studioCreate'), [
+        $response = $this->postJson(route('studioCreate'), [
             'name' => 'Disney',
             'created_year' => 1945,
             'closed_year' => '',
+            'logo' => UploadedFile::fake()->image('avatar.jpg', 200, 200)->size(5),
             'country_id' => 1
         ]);
         $response->dump();
@@ -32,10 +34,12 @@ class StudioTest extends TestCase
         $studio = Studio::create([
             'name' => 'Pixar',
             'created_year' => 1945,
-            'closed_year' => 9999,
+            'closed_year' => '',
+            'logo' => UploadedFile::fake()->image('avatar.jpg', 200, 200)->size(5),
             'country_id' => 1
         ])->toArray();
-        $response = $this->post(route('studioUpdate', $studio));
+        $studio['name'] = 'Loinhard';
+        $response = $this->postJson(route('studioUpdate', ['id' => $studio['id']]), $studio);
         $response->dump();
         $response->assertStatus(200);
     }
