@@ -27,21 +27,23 @@ class StudioController extends Controller
 
     function save(Studio $studio, $update = false)
     {
+        $request = request();
+
         $fields = [
             ['name' => 'name'],
             ['name' => 'created_year'],
             ['name' => 'closed_year'],
             ['name' => 'country_id'],
-        ];
-
-        if ($update) {
-            $fields [] = [
+            [
                 'name' => 'logo',
-                'resultValue' => function () use ($studio, $update) {
-                    Storage::disk('public')->delete($studio->logo);
-                    return FileHelper::saveImage('logo', ['width' => 200]);
-                }];
-        }
+                'iniValue' => function () use ($studio, $update, $request) {
+                    if ($request->file('logo')) {
+                        if ($update) Storage::disk('public')->delete($studio->logo);
+                        return FileHelper::saveImage('logo', 'avatar', ['width' => 200]);
+                    }
+                }
+            ]
+        ];
 
         ModelService::saveOnRequest($fields, $studio);
     }

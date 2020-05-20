@@ -11,19 +11,33 @@ use Illuminate\Http\UploadedFile;
 class StudioTest extends TestCase
 {
     /** @test */
-    public function create()
+    public function createSuccess()
     {
         $user = User::where('name', 'Admin')->first();
         Auth::login($user);
         $response = $this->postJson(route('studioCreate'), [
-            'name' => 'Disney',
+            'name' => 'DisneySuccess',
             'created_year' => 1945,
-            'closed_year' => '',
+            'closed_year' => 3000,
             'logo' => UploadedFile::fake()->image('avatar.jpg', 200, 200)->size(5),
             'country_id' => 1
         ]);
         $response->dump();
         $response->assertStatus(201);
+    }
+
+    /** @test */
+    public function createFail()
+    {
+        $user = User::where('name', 'Admin')->first();
+        Auth::login($user);
+        $response = $this->postJson(route('studioCreate'), [
+            'name' => 111,
+            'closed_year' => '',
+            'logo' => UploadedFile::fake()->image('avatar.jpg', 500, 200)->size(5),
+        ]);
+        $response->dump();
+        $response->assertStatus(422);
     }
 
     /** @test */
@@ -34,7 +48,6 @@ class StudioTest extends TestCase
         $studio = Studio::create([
             'name' => 'Pixar',
             'created_year' => 1945,
-            'closed_year' => '',
             'logo' => UploadedFile::fake()->image('avatar.jpg', 200, 200)->size(5),
             'country_id' => 1
         ])->toArray();

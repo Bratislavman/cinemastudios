@@ -11,8 +11,8 @@ class ModelService
         foreach ($fields as $field) {
             $name_field = $field['name'];
             if ($request->$name_field) {
-                if (isset($field['resultValue'])) {
-                    $model->$name_field = $field['action']();
+                if (isset($field['iniValue'])) {
+                    $model->$name_field = $field['iniValue']();
                 } else $model->$name_field = $request->$name_field;
             }
         }
