@@ -20,6 +20,7 @@ class StudioTest extends TestCase
             'closed_year' => '',
             'country_id' => 1
         ]);
+        $response->dump();
         $response->assertStatus(201);
     }
 
@@ -29,12 +30,13 @@ class StudioTest extends TestCase
         $user = User::where('name', 'Admin')->first();
         Auth::login($user);
         $studio = Studio::create([
-            'name' => 'Disney',
+            'name' => 'Pixar',
             'created_year' => 1945,
             'closed_year' => 9999,
             'country_id' => 1
         ])->toArray();
         $response = $this->post(route('studioUpdate', $studio));
+        $response->dump();
         $response->assertStatus(200);
     }
 }

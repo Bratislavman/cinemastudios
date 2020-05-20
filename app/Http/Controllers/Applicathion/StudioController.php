@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Applicathion;
 
 use App\Http\StaticHelpers\FileHelper;
 use App\Models\Studio;

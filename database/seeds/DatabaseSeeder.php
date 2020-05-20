@@ -15,8 +15,9 @@ class DatabaseSeeder extends Seeder
         $this->call(CountrySeeder::class);
         UserService::createUser(
             'admin@gmail.ru',
-             '7XDooMX2',
-            'Admin'
+            '7XDooMX2',
+            'Admin',
+            UserService::ROLE_ID_ADMIN
         );
         UserService::createUser(
             'user@gmail.ru',

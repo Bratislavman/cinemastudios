@@ -19,9 +19,9 @@ Route::prefix('studios')->group(function () {
 
 Route::middleware(['admin'])->group(function () {
     Route::prefix('studios')->group(function () {
-        Route::post('create', 'Fields\StudioController@create')->name('studioCreate');
-        Route::post('{id}/update', 'Fields\StudioController@update')->name('studioUpdate');
-        Route::post('{id}/delete', 'Fields\StudioController@delete')->name('studioDelete');
+        Route::post('create', 'Application\StudioController@create')->name('studioCreate');
+        Route::post('{id}/update', 'Application\StudioController@update')->name('studioUpdate');
+        Route::post('{id}/delete', 'Application\StudioController@delete')->name('studioDelete');
     });
 });
 
