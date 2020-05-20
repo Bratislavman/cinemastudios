@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Applicathion;
+namespace App\Http\Controllers\Application;
 
-use App\Models\Country;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Serial;
 
-class CountryController extends Controller
+class SerialController extends Controller
 {
     public function index()
     {
@@ -17,7 +18,7 @@ class CountryController extends Controller
         return '';
     }
 
-    public function update(Country $country)
+    public function update(Serial $serial)
     {
         return '';
     }

@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Applicathion;
+namespace App\Http\Controllers\Application;
 
-use App\Http\StaticHelpers\FileHelper;
+use App\Http\Controllers\Controller;
 use App\Models\Studio;
+use App\Services\FileHelper;
 use App\Services\ModelService;
 use App\Services\ResponseService;
 use Illuminate\Http\Request;
