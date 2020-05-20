@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Movie;
+use App\Services\ResponseService;
 use Illuminate\Http\Request;
 
 class MovieController extends Controller
@@ -15,12 +16,12 @@ class MovieController extends Controller
             'date_of_issue' => 'required|date',
         ]);
 
-        return response('', 201);
+        return ResponseService::response201();
     }
 
     public function movie(Movie $movie)
     {
-        return '';
+
     }
 
     public function create()

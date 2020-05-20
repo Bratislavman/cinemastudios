@@ -12,6 +12,11 @@ class ResponseService
         ], $fields), $code);
     }
 
+    public static function response201()
+    {
+        return ResponseService::response('Ресур создан успешно', 201);
+    }
+
     public static function error($message = 'Ошибка на сервере.', $code = 500, $fields = [])
     {
         return ResponseService::response($message, $code, $fields);
