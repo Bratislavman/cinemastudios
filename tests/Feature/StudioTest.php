@@ -11,7 +11,7 @@ class StudioTest extends TestCase
     /** @test */
     public function index()
     {
-        $response = $this->get('/');
+        $response = $this->post('/');
 
         $response->assertStatus(200);
     }
@@ -19,7 +19,7 @@ class StudioTest extends TestCase
     /** @test */
     public function create()
     {
-        $response = $this->get('/');
+        $response = $this->post('/');
 
         $response->assertStatus(200);
     }
@@ -27,7 +27,7 @@ class StudioTest extends TestCase
     /** @test */
     public function studio()
     {
-        $response = $this->get('/');
+        $response = $this->post('/');
 
         $response->assertStatus(200);
     }
@@ -35,15 +35,14 @@ class StudioTest extends TestCase
     /** @test */
     public function update()
     {
-        $response = $this->get('/');
-
+        $response = $this->post('/');
         $response->assertStatus(200);
     }
 
     /** @test */
     public function delete()
     {
-        $response = $this->get('/');
+        $response = $this->post('/');
 
         $response->assertStatus(200);
     }

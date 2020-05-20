@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\StaticHelpers;
+namespace App\Services;
 
-use Illuminate\Support\Str;
 use Spatie\Image\Image;
 use Spatie\Image\Manipulations;
 use Illuminate\Support\Facades\Storage;
-use App\Models\UserFieldsValues;
 
 class FileHelper
 {
@@ -20,24 +18,21 @@ class FileHelper
      * Cохраняет картинку и создаёт миниатюру, если нужно
      *
      * @param string $requestFileProperty имя переменной из request
+     * @param string $folder папка
      * @param array $miniature массив параметров для создания минатюры(смотри код чтоб увидеть список)
-     * @param string $name название файла(по-умолчанию будет имя самого файла)
-     * @param string $disc диск для сохранения
+     * @param string $disk диск для сохранения
      *
      * @return string Путь к сохранённому файлу
      */
-    public static function saveImage($requestFileProperty, array $miniature = [], string $name = '', string $disc = 'public'): string
+    public static function saveImage($requestFileProperty, string $folder, array $miniature = [], string $disk = 'public'): string
     {
         $request = request();
-        if ($name === '') $name = $request->file($requestFileProperty)->name();
-        $path = $request->file($requestFileProperty)->storeAs(
-            $request->user()->id, self::randomFileName($name, $request->{$requestFileProperty}), $disc
-        );
+        $path = $request->file($requestFileProperty)->store($folder, $disk);
 
         if (empty($miniature) == false) {
             if (isset($miniature['height']) == false) $miniature['height'] = $miniature['width'];
             if (isset($miniature['fitMethod']) == false) $miniature['fitMethod'] = Manipulations::FIT_STRETCH;
-            $url = Storage::disk($disc)->url($path);
+            $url = Storage::disk($disk)->url($path);
             Image::load($url)
                 ->fit($miniature['fitMethod'], $miniature['width'], $miniature['height'])
                 ->save();
