@@ -40,16 +40,16 @@ class StudioController extends Controller
             ->paginate(5);
     }
 
+    public function studio(Studio $studio)
+    {
+        return $studio;
+    }
+
     public function create(Request $request)
     {
         $request->validate($this->rules());
         $this->save(new Studio());
         return ResponseService::response201();
-    }
-
-    public function studio(Studio $studio)
-    {
-        return $studio;
     }
 
     public function update(Request $request, Studio $studio)
@@ -58,6 +58,12 @@ class StudioController extends Controller
         $rules['logo'] = 'image|dimensions:min_width=200,min_height=200,max_width=200,max_height=200';
         $request->validate($rules);
         $this->save($studio);
+        return ResponseService::response();
+    }
+
+    public function delete(Studio $studio)
+    {
+        $studio->delete();
         return ResponseService::response();
     }
 }
