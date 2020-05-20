@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 class UserService
 {
     const ROLE_ID_ADMIN = 1;
+    const ROLE_ID_USER = 2;
 
     const USER_ROLES = [
         [
@@ -19,7 +20,7 @@ class UserService
         [
             'name' => 'Пользователь',
             'machine_name' => 'user',
-            'id' => 2
+            'id' => self::ROLE_ID_USER
         ],
     ];
 
@@ -34,7 +35,7 @@ class UserService
         return UserService::getRoleProperty($machine_name);
     }
 
-    public static function createUser($email, $password, $name, $role_id = self::ROLE_ID_ADMIN)
+    public static function createUser($email, $password, $name, $role_id = self::ROLE_ID_USER)
     {
         return User::create(
             [
