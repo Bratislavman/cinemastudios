@@ -12,9 +12,7 @@ class CountrySeeder extends Seeder
      */
     public function run()
     {
-       Country::create(
-           ['name' => 'Россия'],
-           ['name' => 'Америка']
-       );
+        Country::create(['name' => 'Россия']);
+        Country::create(['name' => 'Америка']);
     }
 }
