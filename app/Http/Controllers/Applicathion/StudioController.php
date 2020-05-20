@@ -2,34 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\StaticHelpers\FileHelper;
 use App\Models\Studio;
 use App\Services\ModelService;
 use App\Services\ResponseService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class StudioController extends Controller
 {
-    function rules()
+    function rules($updateMode = false)
     {
-        return [
+        $rules = [
             'name' => 'required|string|max:20|min:2',
             'logo' => 'required|image|dimensions:min_width=200,min_height=200,max_width=200,max_height=200',
             'created_year' => 'required|integer',
             'closed_year' => 'integer',
             'country_id' => 'required|integer',
         ];
+        if ($updateMode) $rules['logo'] = 'image|dimensions:min_width=200,min_height=200,max_width=200,max_height=200';
+        return $rules;
     }
 
-    function save(Studio $studio)
+    function save(Studio $studio, $update = false)
     {
         ModelService::saveOnRequest([
             ['name' => 'name'],
             ['name' => 'created_year'],
             ['name' => 'closed_year'],
             ['name' => 'country_id'],
-            ['name' => 'logo', 'action' => function () {
-                //save file
-                return '';
+            ['name' => 'logo', 'resultValue' => function () use ($studio, $update) {
+                if ($update) Storage::disk('public')->delete($studio->logo);
+                return FileHelper::saveImage('logo', ['width' => 200]);
             }],
         ], $studio);
     }
@@ -54,10 +58,8 @@ class StudioController extends Controller
 
     public function update(Request $request, Studio $studio)
     {
-        $rules = $this->rules();
-        $rules['logo'] = 'image|dimensions:min_width=200,min_height=200,max_width=200,max_height=200';
-        $request->validate($rules);
-        $this->save($studio);
+        $request->validate($this->rules(true));
+        $this->save($studio, true);
         return ResponseService::response();
     }
 
