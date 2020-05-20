@@ -2,48 +2,39 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\Studio;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
 class StudioTest extends TestCase
 {
     /** @test */
-    public function index()
-    {
-        $response = $this->post('/');
-
-        $response->assertStatus(200);
-    }
-
-    /** @test */
     public function create()
     {
-        $response = $this->post('/');
-
-        $response->assertStatus(200);
-    }
-
-    /** @test */
-    public function studio()
-    {
-        $response = $this->post('/');
-
-        $response->assertStatus(200);
+        $user = User::where('name', 'Admin')->first();
+        Auth::login($user);
+        $response = $this->post(route('studioCreate'), [
+            'name' => 'Disney',
+            'created_year' => 1945,
+            'closed_year' => '',
+            'country_id' => 1
+        ]);
+        $response->assertStatus(201);
     }
 
     /** @test */
     public function update()
     {
-        $response = $this->post('/');
-        $response->assertStatus(200);
-    }
-
-    /** @test */
-    public function delete()
-    {
-        $response = $this->post('/');
-
+        $user = User::where('name', 'Admin')->first();
+        Auth::login($user);
+        $studio = Studio::create([
+            'name' => 'Disney',
+            'created_year' => 1945,
+            'closed_year' => 9999,
+            'country_id' => 1
+        ])->toArray();
+        $response = $this->post(route('studioUpdate', $studio));
         $response->assertStatus(200);
     }
 }

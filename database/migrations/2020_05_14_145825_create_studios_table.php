@@ -16,8 +16,9 @@ class CreateStudiosTable extends Migration
         Schema::create('studios', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('logo');
             $table->smallInteger('created_year');
-            $table->smallInteger('closed_year');
+            $table->smallInteger('closed_year')->nullable();
             $table->smallInteger('country_id');
             $table->timestamps();
         });

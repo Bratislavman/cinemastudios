@@ -18,5 +18,10 @@ class DatabaseSeeder extends Seeder
              '7XDooMX2',
             'Admin'
         );
+        UserService::createUser(
+            'user@gmail.ru',
+            '7XDooMX3',
+            'User'
+        );
     }
 }
