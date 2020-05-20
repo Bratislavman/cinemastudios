@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Services\ErrorService;
+use App\Services\ResponseService;
 use Illuminate\Support\Facades\Auth;
 
 class Admin
@@ -12,6 +12,6 @@ class Admin
     {
         $user = Auth::user();
         if ($user && $user->role_id == 1) return $next($request);
-        return ErrorService::returnError403();
+        return ResponseService::error403();
     }
 }

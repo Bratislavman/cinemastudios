@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Services\ErrorService;
+use App\Services\ResponseService;
 use Illuminate\Support\Facades\Auth;
 
 class Anonimus
@@ -11,6 +11,6 @@ class Anonimus
     public function handle($request, Closure $next)
     {
         if (Auth::check() == false) return $next($request);
-        return ErrorService::returnError403();
+        return ResponseService::error403();
     }
 }
