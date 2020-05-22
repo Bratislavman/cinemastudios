@@ -11,6 +11,7 @@ class Admin
     public function handle($request, Closure $next)
     {
         $user = Auth::user();
+        return $next($request);
         if ($user && $user->role_id == 1) return $next($request);
         return ResponseService::error403();
     }
