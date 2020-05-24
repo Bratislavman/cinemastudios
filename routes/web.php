@@ -28,6 +28,7 @@ Route::prefix('studios')->group(function () {
 Route::get('/', function () {
     return view('app');
 });
+
 Route::get('/{any?}', function ($any) {
     return view('app');
 })->where('any', '.*');

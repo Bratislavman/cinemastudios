@@ -42,7 +42,6 @@ return [
     */
 
     'disks' => [
-
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
@@ -51,8 +50,15 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => storage_path('app/public'),
             'visibility' => 'public',
+        ],
+
+        'private' => [
+            'driver' => 'local',
+            'root' => storage_path('app/private'),
+            'url' => storage_path('app/private'),
+            'visibility' => 'private',
         ],
 
         's3' => [
